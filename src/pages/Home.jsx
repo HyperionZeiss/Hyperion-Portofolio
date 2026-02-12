@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="grid grid-cols-1 items-center gap-10 pt-8 md:grid-cols-2 md:gap-14 md:pt-10" id="home">
+      <section className="grid grid-cols-1 items-center gap-10 pt-8 md:grid-cols-2 md:gap-14 md:pt-20" id="home">
         <div className="flex flex-col gap-2">
           <p className="mb-3 text-base text-white/80 sm:text-lg">Hi, I’m Gan-Erdene G.</p>
           <h1 className="m-0 text-[52px] font-semibold leading-[1.1] tracking-[-0.00em] text-white/90 sm:text-[64px] lg:text-[80px]">
@@ -84,7 +84,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="mt-10 flex justify-center" aria-label="Languages and tools">
+      <div className="mt-15 flex justify-center" aria-label="Languages and tools">
         <div className="w-full max-w-[1200px] px-4">
           <Marquee
             items={tools}
