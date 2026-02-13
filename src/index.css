@@ -65,6 +65,73 @@ body {
   cursor: url("/cursor.svg") 16 16, auto;
 }
 
+body.is-custom-cursor {
+  cursor: none;
+}
+
+.custom-cursor-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: lighten;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease, transform 160ms ease, scale 160ms ease;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 12px rgba(146, 83, 255, 0.4));
+}
+
+.cursor-dot {
+  width: 9px;
+  height: 9px;
+  background: radial-gradient(circle, #fff 0%, #9253ff 50%, rgba(146, 83, 255, 0.2) 100%);
+  box-shadow: 0 0 8px rgba(146, 83, 255, 0.45);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.75px solid rgba(146, 83, 255, 0.4);
+  background: radial-gradient(circle, rgba(146, 83, 255, 0.18) 0%, rgba(146, 83, 255, 0) 65%);
+  backdrop-filter: blur(1px);
+  transition: opacity 160ms ease, transform 220ms ease, border-color 200ms ease;
+}
+
+.cursor-dot.is-visible,
+.cursor-ring.is-visible {
+  opacity: 1;
+}
+
+.cursor-dot.is-hover {
+  transform: translate(-50%, -50%) scale(1.4);
+}
+
+.cursor-ring.is-hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  border-color: rgba(44, 255, 5, 0.65);
+  box-shadow: 0 0 20px rgba(44, 255, 5, 0.35);
+}
+
+.cursor-dot.is-pressing {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.cursor-ring.is-pressing {
+  transform: translate(-50%, -50%) scale(0.85);
+  border-color: rgba(255, 255, 255, 0.8);
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

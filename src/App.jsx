@@ -5,6 +5,7 @@ import Landing from './pages/Landing';
 import About from './pages/About';
 import DotGrid from './components/DotGrid';
 import GradualBlur from './components/GradualBlur';
+import CustomCursor from './components/CustomCursor';
 
 function App() {
   const [active, setActive] = useState('home');
@@ -149,6 +150,7 @@ function App() {
           'radial-gradient(1200px 800px at 25% 10%, rgba(82, 39, 255, 0.18), transparent 55%), radial-gradient(900px 600px at 70% 15%, rgba(255, 255, 255, 0.06), transparent 60%), linear-gradient(180deg, rgba(3, 0, 8, 1) 0%, rgba(5, 2, 12, 1) 50%, rgba(3, 0, 8, 1) 100%)',
       }}
     >
+      <CustomCursor />
       <div className="pointer-events-none absolute inset-0 opacity-50" aria-hidden="true">
         <DotGrid
           dotSize={5}
