@@ -15,9 +15,13 @@ export default function Home() {
       { label: 'React', icon: '/react.svg' },
       { label: 'Vite', icon: '/vite.svg' },
       { label: 'NodeJS', icon: '/nodejs.svg' },
+      { label: 'NestJS', icon: '/nestjs.svg' },
       { label: 'NextJS', icon: '/nextjs.svg' },
       { label: 'TailwindCSS', icon: '/tailwindcss.svg' },
       { label: 'MySQL', icon: '/mysql.svg' },
+      { label: 'PostgreSQL', icon: '/postgresql.svg' },
+      { icon: '/mongodb.svg', logoOnly: true },
+      { icon: '/redis.svg', logoOnly: true },
     ],
     [],
   );
@@ -61,12 +65,10 @@ export default function Home() {
       <section className="grid grid-cols-1 items-center gap-10 pt-8 md:grid-cols-2 md:gap-14 md:pt-20" id="home">
         <div className="flex flex-col gap-2">
           <p className="mb-3 text-base text-white/80 sm:text-lg">Hi, I’m Gan-Erdene G.</p>
-          <h1 className="m-0 text-[52px] font-semibold leading-[1.1] tracking-[-0.00em] text-white/90 sm:text-[64px] lg:text-[80px]">
-            Designer Who
-            <br />
-            Can Actually
-            <br />
-            Code
+          <h1 className="m-0 text-[52px] font-semibold leading-[1.05] tracking-[-0.00em] text-white/90 sm:text-[64px] lg:text-[80px]">
+            <span className="block whitespace-nowrap">Designer Who</span>
+            <span className="block whitespace-nowrap">Can Actually</span>
+            <span className="block whitespace-nowrap">Code</span>
           </h1>
           <p className="m-0 max-w-[1200px] text-[18px] leading-7 text-white sm:text-[22px] sm:leading-8 lg:text-[26px]">
             Transforming ideas into interactive and seamless digital experiences with cutting-edge{' '}
@@ -74,7 +76,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-col items-start gap-6">
+        <div className="flex flex-col items-center gap-6 md:items-end md:justify-self-center">
           <img
             className="w-full max-w-[360px] select-none motion-safe:animate-[shake_5s_ease-in_infinite]"  
             src="/dictionarie.svg"
@@ -92,8 +94,15 @@ export default function Home() {
             fadeWidth={60}
             itemRenderer={(t) => (
               <div className="inline-flex select-none items-center gap-2.5  px-10 py-2">
-                <img className="h-7.5 w-7.5" src={t.icon} alt="" aria-hidden="true" />
-                <span className="text-xl tracking-wide text-white/75">{t.label}</span>
+                <img
+                  className={t.logoOnly ? 'h-7 w-auto' : 'h-7.5 w-7.5'}
+                  src={t.icon}
+                  alt=""
+                  aria-hidden="true"
+                />
+                {t.label ? (
+                  <span className="text-xl tracking-wide text-white/75">{t.label}</span>
+                ) : null}
               </div>
             )}
           />

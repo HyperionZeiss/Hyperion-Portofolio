@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Github, Facebook, Instagram, Twitter, Heart } from 'lucide-react';
 
+const LIKES_KEY = 'contact.likes';
+const HAS_LIKED_KEY = 'contact.hasLiked';
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitStatus, setSubmitStatus] = useState('idle');
@@ -10,7 +13,7 @@ export default function Contact() {
 
   const [likes, setLikes] = useState(() => {
     try {
-      const raw = localStorage.getItem('contact.likes');
+      const raw = localStorage.getItem(LIKES_KEY);
       const n = raw == null ? NaN : Number(raw);
       return Number.isFinite(n) ? n : 0;
     } catch {
@@ -20,7 +23,7 @@ export default function Contact() {
 
   const [hasLiked, setHasLiked] = useState(() => {
     try {
-      return localStorage.getItem('contact.hasLiked') === 'true';
+      return localStorage.getItem(HAS_LIKED_KEY) === 'true';
     } catch {
       return false;
     }
@@ -28,7 +31,7 @@ export default function Contact() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('contact.likes', String(likes));
+      localStorage.setItem(LIKES_KEY, String(likes));
     } catch {
       // ignore
     }
@@ -36,7 +39,7 @@ export default function Contact() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('contact.hasLiked', hasLiked ? 'true' : 'false');
+      localStorage.setItem(HAS_LIKED_KEY, hasLiked ? 'true' : 'false');
     } catch {
       // ignore
     }
@@ -101,6 +104,28 @@ export default function Contact() {
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Failed to send message.');
       setSubmitStatus('error');
+    }
+  };
+
+  const onLike = () => {
+    try {
+      if (localStorage.getItem(HAS_LIKED_KEY) === 'true') {
+        setHasLiked(true);
+        return;
+      }
+
+      const raw = localStorage.getItem(LIKES_KEY);
+      const currentLikes = Number.isFinite(Number(raw)) ? Number(raw) : likes;
+      const nextLikes = currentLikes + 1;
+
+      localStorage.setItem(LIKES_KEY, String(nextLikes));
+      localStorage.setItem(HAS_LIKED_KEY, 'true');
+      setLikes(nextLikes);
+      setHasLiked(true);
+    } catch {
+      if (hasLiked) return;
+      setLikes((v) => v + 1);
+      setHasLiked(true);
     }
   };
 
@@ -223,14 +248,11 @@ export default function Contact() {
             }`}
             type="button"
             disabled={hasLiked}
-            onClick={() => {
-              if (hasLiked) return;
-              setLikes((v) => v + 1);
-              setHasLiked(true);
-            }}
+            onClick={onLike}
+            aria-pressed={hasLiked}
           >
             <Heart size={20} className="text-violet-900" />
-            <span>{likes} Likes</span>
+            <span>{hasLiked ? `${likes} Liked` : `${likes} Likes`}</span>
           </button>
         </div>
 
